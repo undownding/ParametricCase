@@ -34,7 +34,7 @@ module motherboard_miniitx(show_keepouts, socket_holes, socket) {
     area_c_keepout = [170-30, 15, 30, 170-15, 38];
     area_d_keepout = [0, 15, 27, 170-15, 39];
     $fn = 20;
-    
+
     difference() {
         union() {
             // The PCB
@@ -47,7 +47,7 @@ module motherboard_miniitx(show_keepouts, socket_holes, socket) {
                 }
             }
         }
-        
+
         // Mounting holes for the motherboard
         translate([miniitx_hole_c[0], miniitx_hole_c[1], -extra/2]) {
             cylinder(r = miniitx_hole/2, h = miniitx[2]+extra);
@@ -55,7 +55,7 @@ module motherboard_miniitx(show_keepouts, socket_holes, socket) {
                 translate([hole[0], hole[1], 0]) cylinder(r = miniitx_hole/2, h = miniitx[2]+extra);
             }
         }
-        
+
         // Mounting holes for the CPU cooler
         translate([socket_holes[0], socket_holes[1], -extra/2]) {
             for (i = [-socket_holes[2]/2, socket_holes[2]/2]) {
@@ -65,17 +65,17 @@ module motherboard_miniitx(show_keepouts, socket_holes, socket) {
             }
         }
     }
-    
+
     // PCI-e slot
     color("DarkSlateGray", 1.0) {
         translate([pci_e_offset[0]-14.5, pci_e_offset[1]-7.5/2, miniitx[2]]) cube([89.0, 7.5, 11.25]);
     }
-    
+
     // Keepouts for visualization purposes
     color("GreenYellow", 0.25) {
         if (show_keepouts == true) {
             translate([0, 0, -miniitx_bottom_keepout]) cube([miniitx[0], miniitx[1], miniitx_bottom_keepout]);
-            
+
             for (keepout = [area_a_keepout, area_b_keepout, area_c_keepout, area_d_keepout]) {
                 translate([keepout[0], keepout[1], miniitx[2]]) {
                     cube([keepout[2], keepout[3], keepout[4]]);
